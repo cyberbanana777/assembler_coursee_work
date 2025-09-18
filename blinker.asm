@@ -10,16 +10,22 @@
 .def red_led_state = r20    ; Яркость красного (0-255)
 .def green_led_state = r21  ; =0
 .def blue_led_state = r22   ; =0
-.def encoder_prev = r23     ; Предыдущее состояние энкодера
-.def zero = r0              ; Нулевой регистр
+.def pos_reg = r23      ; Позиция энкодера
+
+; Определение пинов
+.equ PIN_A = 2    ; PD2
+.equ PIN_B = 3    ; PD3
 
 ; Начало программы
 .cseg
+; Векторы прерываний
 .org 0x0000
-    rjmp reset              ; Вектор сброса
-    rjmp INT0_Handler       ; Вектор INT0 (D2)
-    rjmp INT1_Handler       ; Вектор INT1 (D3)
-    ; ... остальные векторы ...
+    jmp reset
+.org INT0addr
+    jmp ISR_INT0
+.org INT1addr
+    jmp ISR_INT1
+
 
 .org 0x100
 reset:
@@ -29,17 +35,14 @@ reset:
     ldi temp, high(RAMEND)
     out SPH, temp
 
-    ; Инициализация нулевого регистра
-    clr zero
-
     ; Настройка пинов энкодера как входов с подтяжкой
-    cbi DDRD, PD2          ; D2 как вход (канал A энкодера)
-    sbi PORTD, PD2         ; Подтяжка к питанию
-    cbi DDRD, PD3          ; D3 как вход (канал B энкодера) 
-    sbi PORTD, PD3         ; Подтяжка к питанию
+    cbi DDRD, PIN_A          ; D2 как вход (канал A энкодера)
+    cbi PORTD, PIN_A         ; Выключить подтяжку к питанию
+    cbi DDRD, PIN_B          ; D3 как вход (канал B энкодера) 
+    cbi PORTD, PIN_B         ; Выключить подтяжку к питанию
 
-    ; Настройка прерываний для энкодера
-    ldi temp, (1<<ISC01)|(1<<ISC00)|(1<<ISC11)|(1<<ISC10) ; По любому изменению
+    ; Настройка прерываний для энкодера (по нисходящему фронту)
+    ldi temp, (1<<ISC01)|(0<<ISC00)|(1<<ISC11)|(0<<ISC10)
     sts EICRA, temp
     ldi temp, (1<<INT0)|(1<<INT1) ; Разрешить INT0 и INT1
     out EIMSK, temp
@@ -65,16 +68,11 @@ reset:
     sts TCCR1B, temp
 
     ; Инициализация переменных
-    ldi red_led_state, 128   ; Начальная яркость красного = 50%
-    ldi green_led_state, 0   ; Зеленый выключен
-    ldi blue_led_state, 0    ; Синий выключен
-    ldi encoder_prev, 0
+    ldi red_led_state, 0   ; Начальная яркость красного = 50%
+    ldi green_led_state, 255   ; Зеленый выключен
+    ldi blue_led_state, 50    ; Синий выключен
+    ldi pos_reg, 0       ; Начальная позиция энкодера
     
-    ; Прочитать начальное состояние энкодера
-    in temp, PIND
-    andi temp, (1<<PIND2)|(1<<PIND3)  ; Правильная маска!
-    mov encoder_prev, temp
-
     ; Применить начальные значения
     rcall update_leds
 
@@ -83,8 +81,19 @@ reset:
 
     rjmp main_loop
 
+
 ; Главный бесконечный цикл
 main_loop:
+    ; Обновляем яркость на основе позиции энкодера
+    mov red_led_state, pos_reg
+    mov blue_led_state, pos_reg
+
+    ldi temp, 255
+    sub temp, pos_reg
+    mov green_led_state, temp 
+    
+    rcall update_leds
+
     ; Мигаем светодиодом на D13 для индикации работы
     sbi PORTB, 5
     rcall delay_100ms
@@ -93,109 +102,6 @@ main_loop:
     
     rjmp main_loop
 
-; Обработчик прерывания INT0 (D2 - канал A)
-INT0_Handler:
-    push temp
-    in temp, SREG
-    push temp
-    
-    rcall handle_encoder  ; Обработать изменение энкодера
-    
-    pop temp
-    out SREG, temp
-    pop temp
-    reti
-
-; Обработчик прерывания INT1 (D3 - канал B)  
-INT1_Handler:
-    push temp
-    in temp, SREG
-    push temp
-    
-    rcall handle_encoder  ; Обработать изменение энкодера
-    
-    pop temp
-    out SREG, temp
-    pop temp
-    reti
-
-; Обработка изменения энкодера
-; Обработка изменения энкодера (упрощенная версия)
-handle_encoder:
-    push temp
-    push r1
-    
-    ; Прочитать текущее состояние энкодера
-    in temp, PIND
-    andi temp, (1<<PIND2)|(1<<PIND3)
-    
-    ; Сравнить с предыдущим состоянием
-    cp temp, encoder_prev
-    breq end_encoder_handler  ; Если не изменилось - выйти
-    
-    ; Проверить последовательность состояний для определения направления
-    ; Энкодер: 00 → 10 → 11 → 01 → 00 (вперед)
-    ;          00 → 01 → 11 → 10 → 00 (назад)
-    
-    cpi encoder_prev, 0b00000000
-    breq check_from_00
-    cpi encoder_prev, 0b00000100  ; PD2
-    breq check_from_10
-    cpi encoder_prev, 0b00001100  ; PD2+PD3
-    breq check_from_11
-    cpi encoder_prev, 0b00001000  ; PD3
-    breq check_from_01
-    
-    rjmp end_encoder_handler
-
-check_from_00:
-    cpi temp, 0b00000100  ; 00 → 10 = вперед
-    breq encoder_inc
-    cpi temp, 0b00001000  ; 00 → 01 = назад
-    breq encoder_dec
-    rjmp end_encoder_handler
-
-check_from_10:
-    cpi temp, 0b00001100  ; 10 → 11 = вперед
-    breq encoder_inc
-    cpi temp, 0b00000000  ; 10 → 00 = назад
-    breq encoder_dec
-    rjmp end_encoder_handler
-
-check_from_11:
-    cpi temp, 0b00001000  ; 11 → 01 = вперед
-    breq encoder_inc
-    cpi temp, 0b00000100  ; 11 → 10 = назад
-    breq encoder_dec
-    rjmp end_encoder_handler
-
-check_from_01:
-    cpi temp, 0b00000000  ; 01 → 00 = впеard
-    breq encoder_inc
-    cpi temp, 0b00001100  ; 01 → 11 = назад
-    breq encoder_dec
-    rjmp end_encoder_handler
-
-encoder_inc:
-    inc red_led_state      ; Увеличить яркость красного
-    sbi PORTB, 5          ; Мигнуть D13
-    cbi PORTB, 5
-    rjmp update_brightness
-
-encoder_dec:
-    dec red_led_state      ; Уменьшить яркость красного
-    sbi PORTB, 5          ; Мигнуть D13
-    cbi PORTB, 5
-
-update_brightness:
-    rcall update_leds      ; Немедленно обновить светодиоды
-
-end_encoder_handler:
-    mov encoder_prev, temp ; Сохранить текущее состояние
-    pop r1
-    pop temp
-    ret
- 
 
 ; Обновление светодиодов
 update_leds:
@@ -203,6 +109,7 @@ update_leds:
     out OCR0A, red_led_state    ; D6 = Красный (0-255)
     sts OCR1AL, blue_led_state  ; D9 = Синий (всегда 0)
     ret
+
 
 ; Подпрограмма задержки ~100ms
 delay_100ms:
@@ -213,6 +120,7 @@ delay_100ms:
     ldi counter1, 13
     ldi counter2, 45
     ldi counter3, 215
+
 delay_loop:
     dec counter3
     brne delay_loop
@@ -225,3 +133,98 @@ delay_loop:
     pop counter2
     pop counter1
     ret
+
+
+; Обработчик прерывания для канала A (PIN_A)
+ISR_INT0:
+    push temp        ; Сохраняем используемые регистры
+    push r17
+    push r18
+    in r18, SREG    ; Сохраняем регистр статуса
+    push r18
+
+    ; Чтение состояния пинов
+    in r17, PIND
+    andi r17, (1<<PIN_A)|(1<<PIN_B)
+
+    ; Проверка состояния канала A
+    sbrs r17, PIN_A
+    rjmp case_A_0
+
+case_A_1:
+    ; Если PIN_A = 1
+    sbrc r17, PIN_B
+    rjmp dec_pos    ; Если PIN_B = 1
+    rjmp inc_pos    ; Если PIN_B = 0
+
+case_A_0:
+    ; Если PIN_A = 0
+    sbrc r17, PIN_B
+    rjmp inc_pos    ; Если PIN_B = 1
+    rjmp dec_pos    ; Если PIN_B = 0
+
+inc_pos:
+    ; Увеличение позиции
+    ldi temp, 8
+    add pos_reg, temp
+    rjmp end_int0
+
+dec_pos:
+    ; Уменьшение позиции
+    ldi temp, 8
+    sub pos_reg, temp
+
+end_int0:
+    pop r18         ; Восстанавливаем регистр статуса
+    out SREG, r18
+    pop r18
+    pop r17
+    pop temp
+    reti
+
+; Обработчик прерывания для канала B (PIN_B)
+ISR_INT1:
+    push temp       ; Сохраняем используемые регистры
+    push r17        
+    push r18
+    in r18, SREG    ; Сохраняем регистр статуса
+    push r18
+
+    ; Чтение состояния пинов
+    in r17, PIND
+    andi r17, (1<<PIN_A)|(1<<PIN_B)
+
+    ; Проверка состояния канала B
+    sbrs r17, PIN_B
+    rjmp case_B_0
+
+case_B_1:
+    ; Если PIN_B = 1
+    sbrc r17, PIN_A
+    rjmp inc_pos_B  ; Если PIN_A = 1
+    rjmp dec_pos_B  ; Если PIN_A = 0
+
+case_B_0:
+    ; Если PIN_B = 0
+    sbrc r17, PIN_A
+    rjmp dec_pos_B  ; Если PIN_A = 1
+    rjmp inc_pos_B  ; Если PIN_A = 0
+
+inc_pos_B:
+    ; Увеличение позиции
+    ldi temp, 8
+    add pos_reg, temp
+    rjmp end_int1
+
+dec_pos_B:
+    ; Уменьшение позиции
+    ldi temp, 8
+    sub pos_reg, temp
+
+end_int1:
+    pop r18         ; Восстанавливаем регистр статуса
+    out SREG, r18
+    pop r18
+    pop r17
+    pop temp
+    reti
