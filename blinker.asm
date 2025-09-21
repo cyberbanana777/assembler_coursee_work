@@ -67,9 +67,9 @@ reset:
     ldi temp, (1<<WGM12)|(1<<CS11)|(1<<CS10)
     sts TCCR1B, temp
 
-    ; Инициализация переменных
+    ; Задание начальных значений переменных
     ldi red_led_state, 0   ; Начальная яркость красного = 50%
-    ldi green_led_state, 255   ; Зеленый выключен
+    ldi green_led_state, 255   ; Зеленый макс. яркость
     ldi blue_led_state, 50    ; Синий выключен
     ldi pos_reg, 0       ; Начальная позиция энкодера
     
