@@ -8,9 +8,9 @@
 .def counter3 = r19
 
 .def red_led_state = r20    ; Яркость красного (0-255)
-.def green_led_state = r21  ; =0
-.def blue_led_state = r22   ; =0
-.def pos_reg = r23      ; Позиция энкодера
+.def green_led_state = r21  ; Яркость зелёного (0-255)
+.def blue_led_state = r22   ; Яркость синего (0-255)
+.def pos_reg = r23          ; Позиция энкодера
 
 ; Определение пинов
 .equ PIN_A = 2    ; PD2
@@ -58,19 +58,19 @@ reset:
     ; Настройка ТАЙМЕРА0
     ldi temp, (1<<COM0A1)|(1<<COM0B1)|(1<<WGM01)|(1<<WGM00)
     out TCCR0A, temp
-    ldi temp, (1<<CS01)|(1<<CS00)
+    ldi temp, (1<<CS01)        ; Предделитель = 8
     out TCCR0B, temp
 
     ; Настройка ТАЙМЕРА1
-    ldi temp, (1<<COM1A1)|(1<<WGM10)
+    ldi temp, (1<<COM1A1)|(1<<WGM10)   ; Non-inverting mode на канале A, Fast PWM 8-bit
     sts TCCR1A, temp
-    ldi temp, (1<<WGM12)|(1<<CS11)|(1<<CS10)
+    ldi temp, (1<<WGM12)|(1<<CS11)      ; Fast PWM mode, предделитель = 8
     sts TCCR1B, temp
 
     ; Задание начальных значений переменных
-    ldi red_led_state, 0   ; Начальная яркость красного = 50%
-    ldi green_led_state, 255   ; Зеленый макс. яркость
-    ldi blue_led_state, 50    ; Синий выключен
+    ldi red_led_state, 0
+    ldi green_led_state, 255
+    ldi blue_led_state, 50
     ldi pos_reg, 0       ; Начальная позиция энкодера
     
     ; Применить начальные значения
@@ -105,9 +105,9 @@ main_loop:
 
 ; Обновление светодиодов
 update_leds:
-    out OCR0B, green_led_state  ; D5 = Зеленый (всегда 0)
+    out OCR0B, green_led_state  ; D5 = Зеленый (0-255)
     out OCR0A, red_led_state    ; D6 = Красный (0-255)
-    sts OCR1AL, blue_led_state  ; D9 = Синий (всегда 0)
+    sts OCR1AL, blue_led_state  ; D9 = Синий (0-255)
     ret
 
 
