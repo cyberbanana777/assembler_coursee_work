@@ -1,0 +1,84 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="2Ua6T2X9_RcJtbxaia73">
+    <mxGraphModel dx="1356" dy="1179" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-1" target="iC0Hv-fA6GsMCGk_8pzo-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-1" value="Начало" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-2" target="iC0Hv-fA6GsMCGk_8pzo-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-2" value="Инициализируем переменную, которая будет хранить относительное положение энкодера с момента запуска устройства" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="370" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-4" target="iC0Hv-fA6GsMCGk_8pzo-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-4" value="Анализируем при помощи кода Грея направление вращения,&amp;nbsp; используя значения с двух каналов" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="760" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-6" target="iC0Hv-fA6GsMCGk_8pzo-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-6" value="В зависимости от направления вращения изменяем значение переменной, которая хранит положение" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="880" width="120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-9" value="Конец" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="1148" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-11" target="iC0Hv-fA6GsMCGk_8pzo-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="520" />
+              <mxPoint x="-40" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-11" value="Ожидаем срабатывания прерывания по одному из каналов энкодера" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="560" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-12" target="iC0Hv-fA6GsMCGk_8pzo-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-12" value="Считываем напряжение по другому каналу энкодера&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-100" y="678" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-17" target="iC0Hv-fA6GsMCGk_8pzo-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-17" target="iC0Hv-fA6GsMCGk_8pzo-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-17" value="Сработало хотя&lt;div&gt;бы одно из&lt;/div&gt;&lt;div&gt;прерываний?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-115" y="540" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-22" value="Нет" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="570" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-24" value="Да" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="648" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-27" target="iC0Hv-fA6GsMCGk_8pzo-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iC0Hv-fA6GsMCGk_8pzo-27" target="iC0Hv-fA6GsMCGk_8pzo-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-27" value="Устройство&lt;div&gt;работает в штатном режиме?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-112.5" y="1020" width="145" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-30" value="Да" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="32.5" y="1038" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iC0Hv-fA6GsMCGk_8pzo-32" value="Нет" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="1118" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

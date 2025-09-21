@@ -154,22 +154,22 @@ ISR_INT0:
 case_A_1:
     ; Если PIN_A = 1
     sbrc r17, PIN_B
-    rjmp dec_pos_A    ; Если PIN_B = 1
-    rjmp inc_pos_A    ; Если PIN_B = 0
+    rjmp dec_pos    ; Если PIN_B = 1
+    rjmp inc_pos    ; Если PIN_B = 0
 
 case_A_0:
     ; Если PIN_A = 0
     sbrc r17, PIN_B
-    rjmp inc_pos_A    ; Если PIN_B = 1
-    rjmp dec_pos_A    ; Если PIN_B = 0
+    rjmp inc_pos    ; Если PIN_B = 1
+    rjmp dec_pos    ; Если PIN_B = 0
 
-inc_pos_A:
+inc_pos:
     ; Увеличение позиции
     ldi temp, 8
     add pos_reg, temp
     rjmp end_int0
 
-dec_pos_A:
+dec_pos:
     ; Уменьшение позиции
     ldi temp, 8
     sub pos_reg, temp

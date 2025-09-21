@@ -1,0 +1,76 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="OiVX7F7P__rzQvGH_XGv">
+    <mxGraphModel dx="934" dy="691" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-1" target="Zw3WkXVraXCbvuy6SrXL-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-1" value="Настройка светодиода&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="400" width="155" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-2" target="Zw3WkXVraXCbvuy6SrXL-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-2" value="Начало" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="357.5" y="350" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-4" target="Zw3WkXVraXCbvuy6SrXL-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-4" value="Задание начального состояния светодиода" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="450" width="155" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-12" value="Конец" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="357.5" y="850" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-16" target="Zw3WkXVraXCbvuy6SrXL-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-16" target="Zw3WkXVraXCbvuy6SrXL-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="498.7500000000002" y="600" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="530" y="770" />
+              <mxPoint x="530" y="525" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-16" value="Программа&lt;div&gt;работает в штатном режиме?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="337.5" y="720" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-19" value="Нет" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="410" y="820" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-21" value="Да" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="490" y="740" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-24" target="Zw3WkXVraXCbvuy6SrXL-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-24" value="Включаем светодиод" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="510" width="155" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-26" target="Zw3WkXVraXCbvuy6SrXL-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-26" value="Ожидание (простой) 100 мс" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="560" width="155" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-27" target="Zw3WkXVraXCbvuy6SrXL-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-27" value="Выключаем светодиод" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="610" width="155" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zw3WkXVraXCbvuy6SrXL-28" target="Zw3WkXVraXCbvuy6SrXL-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zw3WkXVraXCbvuy6SrXL-28" value="Ожидание (простой) 100 мс" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="660" width="155" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
